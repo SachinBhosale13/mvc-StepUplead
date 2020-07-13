@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/shared/_Layout.cshtml";
+    ViewBag.Title = "ThankYou";
+}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div class="text-center">
+    <h2>Thank You for downloading pdf</h2>
+    <br />
+    <br />
+    <div>Your download will start automatically after <span style="color:green;font-weight:bolder" id="spnTimer"></span> seconds</div>
+    <br />
+    <br />
+    <br />
+    <div>If your download doesn't start automatically then please click the button below</div>
+    <br />
+    <a class="btn btn-success" id="btnDownloadPDF" href="@Url.Action("DownloadPDF")" target="_blank" disabled download>Download</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnDownloadPDF").click(function () {
+            console.log("hii");
+            window.location.href = "@Url.Action("DownloadPDF")";
+        });
+
+        var counter = 5;
+        $("#spnTimer").text(counter);
+
+        var interval = setInterval(function () {
+            counter--;
+            $("#spnTimer").text(counter);
+
+            if (counter == 0)
+            {
+                $("#btnDownloadPDF").removeAttr("disabled");
+        
+                  $("#btnDownloadPDF").click();
+                clearInterval(interval);
+
+            }
+        }, 1000);
+
+    });
+
+</script>
